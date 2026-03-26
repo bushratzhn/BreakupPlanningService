@@ -5,7 +5,7 @@ Built intentionally terrible for OTU CS Club's **Build It Bad Contest**.
 
 ## How to run it
 **Option 1 — Live site:**
-👉 [bushratzhn.github.io/BreakupPlanningService](https://bushratzhn.github.io/BreakupPlanningService)
+👉 [bushratzhn.github.io/BreakupPlanningService](http://127.0.0.1:5500/youaretheproblem.html)
 
 **Option 2 — Run locally:**
 1. Download `index.html`
