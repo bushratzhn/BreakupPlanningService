@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IT'S NOT ME IT'S YOU dot com</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  font-family: 'Comic Sans MS', 'Comic Neue', cursive;
+  background-color: #ff69b4;
+  background-image:
+    radial-gradient(circle, #ff1493 1px, transparent 1px),
+    radial-gradient(circle, #ff69b4 1px, transparent 1px);
+  background-size: 30px 30px, 15px 15px;
+  background-position: 0 0, 15px 15px;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='28' font-size='26'%3E💔%3C/text%3E%3C/svg%3E"), auto;
+}
+
+@keyframes bgFlash {
+  0%  { background-color:#ff69b4 }
+  10% { background-color:#ff0055 }
+  20% { background-color:#cc00ff }
+  30% { background-color:#ff4500 }
+  40% { background-color:#dc143c }
+  50% { background-color:#ff1493 }
+  60% { background-color:#8b0000 }
+  70% { background-color:#ff6600 }
+  80% { background-color:#cc00aa }
+  90% { background-color:#ff0080 }
+  100%{ background-color:#ff69b4 }
+}
+body { animation: bgFlash 2.5s infinite; }
+
+/* ---- CURSOR TRAIL ---- */
+.trail { position:fixed; pointer-events:none; font-size:20px; z-index:9999; animation:trailFade 0.8s forwards; }
+@keyframes trailFade { to { opacity:0; transform:scale(0) rotate(720deg); } }
+
+/* ---- FLOATING HEARTS ---- */
+.floater { position:fixed; pointer-events:none; z-index:50; animation:floatUp 4s linear forwards; }
+@keyframes floatUp { 0%{opacity:1;transform:translateY(0) rotate(0deg);} 100%{opacity:0;transform:translateY(-110vh) rotate(360deg);} }
+
+/* ---- MARQUEES ---- */
+.mq1 { background:#000; color:#ff69b4; font-size:17px; font-weight:bold; padding:7px 0; border-bottom:6px solid #ff0000; }
+.mq2 { background:#ff0000; color:#ffff00; font-size:13px; font-weight:bold; padding:5px 0; border-bottom:4px dashed #000; }
+.mq3 { background:#ffff00; color:#ff0000; font-size:12px; font-weight:bold; padding:4px 0; border-bottom:4px solid #000; }
+
+/* ---- HEADER ---- */
+header { text-align:center; padding:18px 10px 10px; position:relative; }
+
+@keyframes rainbowText {
+  0%  { color:#ff0000 }
+  14% { color:#ff7700 }
+  28% { color:#ffff00 }
+  42% { color:#00ff00 }
+  57% { color:#0000ff }
+  71% { color:#8b00ff }
+  85% { color:#ff00ff }
+  100%{ color:#ff0000 }
+}
+@keyframes titleWobble {
+  0%,100%{ transform:rotate(-4deg) scale(1) skewX(-3deg); }
+  25%    { transform:rotate(5deg)  scale(1.07) skewX(3deg); }
+  50%    { transform:rotate(-2deg) scale(1.02) skewX(-1deg); }
+  75%    { transform:rotate(4deg)  scale(1.05) skewX(2deg); }
+}
+.site-title {
+  font-size: clamp(36px, 12vw, 100px);
+  font-weight:bold;
+  display:inline-block;
+  animation: titleWobble 0.45s infinite, rainbowText 0.8s linear infinite;
+  text-shadow: 6px 6px 0 #000, -4px -4px 0 #fff, 12px 12px 0 rgba(0,0,0,0.4);
+  line-height:1.05;
+  letter-spacing:-1px;
+}
+.tagline {
+  font-size:clamp(12px,2.5vw,18px);
+  background:#000;
+  color:#ff69b4;
+  display:inline-block;
+  padding:5px 18px;
+  border:4px solid #ffff00;
+  margin:8px 0 4px;
+  transform:rotate(-1.5deg);
+}
+
+@keyframes badgeSpin { 0%,100%{transform:scale(1) rotate(-3deg)} 50%{transform:scale(1.2) rotate(3deg)} }
+.badge { display:inline-block; font-size:11px; font-weight:bold; padding:3px 10px; border:3px solid #000; border-radius:999px; margin:3px; animation:badgeSpin 0.6s infinite; }
+.badge:nth-child(1){background:#ff0000;color:#fff;animation-delay:0s;}
+.badge:nth-child(2){background:#ffff00;color:#000;animation-delay:0.1s;}
+.badge:nth-child(3){background:#000;color:#ff69b4;animation-delay:0.2s;}
+.badge:nth-child(4){background:#00cc00;color:#fff;animation-delay:0.3s;}
+.badge:nth-child(5){background:#0000ff;color:#ffff00;animation-delay:0.4s;}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.blink{animation:blink 0.5s infinite;}
+@keyframes blinkSlow{0%,100%{opacity:1}50%{opacity:0.1}}
+.blink-slow{animation:blinkSlow 1.2s infinite;}
+
+/* ---- UNDER CONSTRUCTION BAR ---- */
+.under-con {
+  background: repeating-linear-gradient(45deg, #ffff00, #ffff00 10px, #000 10px, #000 20px);
+  color:#000; font-size:13px; font-weight:bold;
+  padding:6px 12px; text-align:center;
+  border-top:4px solid #000; border-bottom:4px solid #000;
+}
+.under-con span { background:#ffff00; padding:0 4px; }
+
+/* ---- MAIN GRID ---- */
+.main { max-width:1020px; margin:0 auto; padding:14px; display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+@media(max-width:660px){ .main{grid-template-columns:1fr;} }
+.full { grid-column:1/-1; }
+
+/* ---- CARDS ---- */
+.card {
+  border:7px solid #000;
+  padding:16px;
+  position:relative;
+  overflow:hidden;
+}
+.card::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(135deg,transparent,transparent 8px,rgba(0,0,0,0.03) 8px,rgba(0,0,0,0.03) 16px);
+  pointer-events:none;
+}
+.card:nth-child(1){background:#ffe4f0;box-shadow:8px 8px 0 #000,16px 16px 0 #ff0000;}
+.card:nth-child(2){background:#fff0b3;box-shadow:8px 8px 0 #000,16px 16px 0 #cc8800;}
+.card:nth-child(3){background:#e6f0ff;box-shadow:8px 8px 0 #000,16px 16px 0 #0000cc;grid-column:1/-1;}
+.card:nth-child(4){background:#f0ffe6;box-shadow:8px 8px 0 #000,16px 16px 0 #006600;grid-column:1/-1;}
+
+.card-title {
+  font-size:20px; font-weight:bold; color:#000;
+  border-bottom:5px solid #000; padding:6px; margin-bottom:12px;
+  text-align:center;
+  background:rgba(255,255,255,0.7);
+  position:relative; z-index:1;
+}
+
+/* ---- INPUTS ---- */
+.inp {
+  padding:10px; border:4px solid #000;
+  font-family:'Comic Sans MS',cursive; font-size:14px;
+  background:#fffde7; width:100%;
+  margin-bottom:8px;
+}
+.inp:focus { outline:4px solid #ff0000; }
+
+/* ---- BUTTONS ---- */
+.big-btn {
+  width:100%; padding:14px;
+  font-family:'Comic Sans MS',cursive; font-size:20px; font-weight:bold;
+  border:5px solid #000; cursor:pointer;
+  box-shadow:6px 6px 0 #000; transition:all 0.1s;
+  text-transform:uppercase; position:relative; z-index:1;
+}
+.big-btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 #000;}
+.big-btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 #000;}
+.btn-red{background:#ff0000;color:#fff;}
+.btn-purple{background:#8b00d4;color:#fff;}
+.btn-green{background:#006600;color:#fff;}
+
+.cat-btn {
+  padding:9px 14px; border:4px solid #000;
+  font-family:'Comic Sans MS',cursive; font-size:12px; font-weight:bold;
+  cursor:pointer; box-shadow:3px 3px 0 #000; transition:all 0.1s; margin:3px;
+  position:relative; z-index:1;
+}
+.cat-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #000;}
+.cat-btn.selected{transform:translate(3px,3px);box-shadow:1px 1px 0 #000;outline:4px solid #000;}
+
+/* ---- OUTPUT BOX ---- */
+.out-box {
+  background:#fff; border:5px solid #000; padding:14px;
+  min-height:75px; font-size:14px; font-weight:bold; line-height:1.7;
+  margin-top:12px; position:relative; z-index:1;
+}
+.out-box.empty { color:#aaa; font-style:italic; font-weight:normal; font-size:13px; }
+
+/* ---- METHOD GRID ---- */
+.method-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
+@media(max-width:400px){ .method-grid{grid-template-columns:1fr 1fr;} }
+.method-card {
+  border:5px solid #000; padding:10px 6px; text-align:center;
+  cursor:pointer; background:#fff; box-shadow:4px 4px 0 #000; transition:all 0.1s;
+  position:relative; z-index:1;
+}
+.method-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #000;}
+.method-card.selected{outline:5px solid #ff0000;transform:translate(3px,3px);box-shadow:2px 2px 0 #000;background:#ffe4e1;}
+.m-emoji{font-size:30px;display:block;margin-bottom:4px;}
+.m-name{font-size:12px;font-weight:bold;color:#000;}
+.m-stars{font-size:9px;color:#ff0000;font-weight:bold;margin-top:2px;}
+
+/* ---- PLAN STEPS ---- */
+.step {
+  background:#fff; border:5px solid #000; padding:12px 14px;
+  margin-bottom:10px; display:flex; align-items:flex-start; gap:12px;
+  box-shadow:5px 5px 0 #000; position:relative; z-index:1;
+}
+.step-icon{font-size:26px;min-width:34px;line-height:1;}
+.step-body{}
+.step-title{font-size:15px;font-weight:bold;color:#ff0000;}
+.step-desc{font-size:12px;color:#333;margin-top:3px;line-height:1.6;}
+
+/* ---- TONE BUTTONS ---- */
+.tone-row { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+.tone-btn {
+  padding:8px 14px; border:4px solid #000;
+  font-family:'Comic Sans MS',cursive; font-size:13px; font-weight:bold;
+  cursor:pointer; box-shadow:3px 3px 0 #000; transition:all 0.1s; margin:0;
+}
+.tone-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #000;}
+.tone-btn.active{transform:translate(3px,3px);box-shadow:1px 1px 0 #000;outline:4px solid #000;}
+
+/* ---- SCRIPT BOX ---- */
+.script-output {
+  display:none; background:#fffde7; border:5px dashed #ff0000;
+  padding:16px; margin-top:12px; font-size:13px; line-height:1.9;
+  white-space:pre-wrap; position:relative; z-index:1;
+}
+.script-header { font-weight:bold; color:#ff0000; font-size:14px; display:block; margin-bottom:8px; }
+
+/* ---- BOTTOM ---- */
+.bottom-mq { background:#8b00d4; color:#fff; font-size:13px; font-weight:bold; padding:6px 0; border-top:6px solid #000; }
+footer { background:#000; color:#ff69b4; text-align:center; padding:14px; font-size:12px; border-top:6px solid #ff0000; }
+
+/* ---- COUNTER DISPLAY ---- */
+.counter-bar { background:#000; color:#00ff00; font-family:'Courier New',monospace; font-size:13px; padding:5px 14px; text-align:center; border-bottom:4px solid #ff0000; }
+
+/* ---- STARS DECORATION ---- */
+.stars { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+.star-el { position:absolute; font-size:18px; animation:starFloat linear infinite; opacity:0.15; }
+@keyframes starFloat { from{transform:translateY(100vh);} to{transform:translateY(-20px);} }
+</style>
+</head>
+<body>
+
+<div class="stars" id="starsBg"></div>
+<div id="trailCon"></div>
+
+<!-- TOP MARQUEES -->
+<div class="mq1"><marquee scrollamount="8">💔 IT'S NOT ME IT'S YOU™ — WORLD'S #1 BREAKUP PLANNING WEBSITE 💔 EST. 2026 💔 WE'VE NEVER BEEN DUMPED (THIS IS A LIE) 💔 100% THEIR FAULT GUARANTEED™ 💔 DUMPING MADE EASY™ 💔</marquee></div>
+<div class="mq2"><marquee scrollamount="5" direction="right">⚠️ SIDE EFFECTS MAY INCLUDE: DRAMA, CRYING, BLOCKED NUMBERS, REGRET, MORE DRAMA ⚠️ OUR AI IS NOT A LICENSED THERAPIST ⚠️ BREAKUP CAKES NOT INCLUDED ⚠️</marquee></div>
+<div class="mq3"><marquee scrollamount="3">🌟 BEST VIEWED IN INTERNET EXPLORER 6.0 🌟 SCREEN RESOLUTION: 800x600 🌟 THIS SITE USES COOKIES AND FEELINGS 🌟 VISITOR COUNT: <span id="visitorCount" style="font-weight:bold;">000,001</span> 🌟</marquee></div>
+
+<!-- HEADER -->
+<header>
+  <div class="site-title">IT'S NOT ME<br>IT'S YOU™</div>
+  <br>
+  <div class="tagline">💔 The #1 AI-Powered Breakup Planning Service for Cowards™ 💔</div>
+  <br>
+  <div>
+    <span class="badge">💯 100% THEIR FAULT</span>
+    <span class="badge blink">🚨 DUMPING IN PROGRESS</span>
+    <span class="badge">💔 NO TAKEBACKS</span>
+    <span class="badge">🏆 AWARD WINNING*</span>
+    <span class="badge blink-slow">✨ NEW! PIGEON METHOD</span>
+  </div>
+  <div style="font-size:10px;background:#fff;color:#000;display:inline-block;padding:2px 8px;border:2px solid #000;margin-top:4px;font-weight:bold;">*award self-administered at 2am. we were going through something.</div>
+</header>
+
+<!-- CONSTRUCTION + COUNTER -->
+<div class="under-con">🚧 UNDER CONSTRUCTION 🚧 — <span>THIS SITE IS FINISHED BUT ALSO NOT.</span> — 🚧 UNDER CONSTRUCTION 🚧</div>
+<div class="counter-bar">
+  💔 BREAKUPS COMPLETED TODAY: <span id="dumpCount">0</span> &nbsp;|&nbsp;
+  😭 ESTIMATED TEARS: <span id="tearCount">0.0</span>L &nbsp;|&nbsp;
+  🚩 RED FLAGS IGNORED: <span id="flagCount">847</span> &nbsp;|&nbsp;
+  📱 TEXTS LEFT ON READ: <span id="readCount">0</span>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ====== CARD 1: REASON GENERATOR ====== -->
+  <div class="card">
+    <div class="card-title">🤡 STUPID REASON GENERATOR™</div>
+    <p style="font-size:12px;text-align:center;color:#555;margin-bottom:10px;font-style:italic;">Pick a category. Our AI will legally justify your decision.</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:0;margin-bottom:10px;">
+      <button class="cat-btn" style="background:#ff0000;color:#fff;" onclick="getReason(this,'looks')">😤 Their Appearance</button>
+      <button class="cat-btn" style="background:#ff6600;color:#fff;" onclick="getReason(this,'habits')">🦠 Their Habits</button>
+      <button class="cat-btn" style="background:#cc8800;color:#fff;" onclick="getReason(this,'food')">🍕 Food Crimes</button>
+      <button class="cat-btn" style="background:#0000cc;color:#fff;" onclick="getReason(this,'random')">🎲 Just Unhinged</button>
+      <button class="cat-btn" style="background:#880088;color:#fff;" onclick="getReason(this,'petty')">💅 Very Petty</button>
+      <button class="cat-btn" style="background:#006600;color:#fff;" onclick="getReason(this,'astro')">🔮 Astrology</button>
+    </div>
+
+    <button class="big-btn btn-red" onclick="getRandomReason()">🎲 SURPRISE ME</button>
+
+    <div class="out-box empty" id="reasonBox">← Pick a category or hit SURPRISE ME. Our AI has 47 certified stupid reasons ready to go.</div>
+    <div style="font-size:10px;color:#888;text-align:right;margin-top:4px;font-style:italic;">Disclaimer: all reasons are legally binding in our fake court of law.</div>
+  </div>
+
+  <!-- ====== CARD 2: METHOD PICKER ====== -->
+  <div class="card">
+    <div class="card-title">📬 HOW TO DUMP THEM™</div>
+    <p style="font-size:12px;text-align:center;color:#555;margin-bottom:10px;font-style:italic;">Select your preferred delivery method. All are equally valid. (They are not.)</p>
+
+    <div class="method-grid">
+      <div class="method-card" onclick="pickMethod(this,'text')">
+        <span class="m-emoji">📱</span>
+        <div class="m-name">The Text</div>
+        <div class="m-stars">😬😬😬</div>
+      </div>
+      <div class="method-card" onclick="pickMethod(this,'ghost')">
+        <span class="m-emoji">👻</span>
+        <div class="m-name">The Ghost</div>
+        <div class="m-stars">😬😬😬😬😬</div>
+      </div>
+      <div class="method-card" onclick="pickMethod(this,'letter')">
+        <span class="m-emoji">📮</span>
+        <div class="m-name">Formal Letter</div>
+        <div class="m-stars">😬😬</div>
+      </div>
+      <div class="method-card" onclick="pickMethod(this,'pigeon')">
+        <span class="m-emoji">🐦</span>
+        <div class="m-name">Carrier Pigeon</div>
+        <div class="m-stars">😬😬😬😬</div>
+      </div>
+      <div class="method-card" onclick="pickMethod(this,'cake')">
+        <span class="m-emoji">🎂</span>
+        <div class="m-name">Breakup Cake</div>
+        <div class="m-stars">😬😬😬</div>
+      </div>
+      <div class="method-card" onclick="pickMethod(this,'sticky')">
+        <span class="m-emoji">🗒️</span>
+        <div class="m-name">Sticky Note</div>
+        <div class="m-stars">😬😬😬😬😬</div>
+      </div>
+    </div>
+
+    <div class="out-box empty" id="methodBox">← Select a method above. Our certified breakup consultant (an AI) will advise you.</div>
+  </div>
+
+  <!-- ====== CARD 3: BREAKUP PLAN ====== -->
+  <div class="card full">
+    <div class="card-title">📋 THE OFFICIAL CERTIFIED BREAKUP PLAN™</div>
+    <p style="font-size:12px;text-align:center;color:#555;margin-bottom:12px;font-style:italic;">Enter their name and your (extremely valid) reason. We'll handle the rest.</p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+      <input class="inp" id="planName" placeholder="Their name (e.g. Brad, Kevin, Stephanie...)" style="flex:1;min-width:160px;">
+      <input class="inp" id="planReason" placeholder="Your reason (e.g. chews too loud, breathes wrong...)" style="flex:2;min-width:200px;">
+    </div>
+    <button class="big-btn btn-red" onclick="makePlan()">💔 GENERATE MY OFFICIAL BREAKUP PLAN™</button>
+    <div id="planOutput" style="margin-top:14px;display:none;"></div>
+  </div>
+
+  <!-- ====== CARD 4: SCRIPT GENERATOR ====== -->
+  <div class="card full">
+    <div class="card-title">🎭 BREAKUP SCRIPT GENERATOR™</div>
+    <p style="font-size:12px;text-align:center;color:#555;margin-bottom:10px;font-style:italic;">We write your exact words. You just have to say them. Or text them. We don't judge. (We judge a little.)</p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+      <input class="inp" id="scriptName" placeholder="Their name" style="flex:1;min-width:120px;">
+      <input class="inp" id="scriptReason" placeholder="Your petty reason" style="flex:2;min-width:180px;">
+    </div>
+
+    <p style="font-size:12px;font-weight:bold;color:#000;margin-bottom:6px;">Choose your tone:</p>
+    <div class="tone-row">
+      <button class="tone-btn active" style="background:#ff0000;color:#fff;" data-tone="dramatic" onclick="setTone(this)">🎭 Dramatic</button>
+      <button class="tone-btn" style="background:#ff6600;color:#fff;" data-tone="petty" onclick="setTone(this)">💅 Petty</button>
+      <button class="tone-btn" style="background:#0000aa;color:#fff;" data-tone="corporate" onclick="setTone(this)">📊 Corporate</button>
+      <button class="tone-btn" style="background:#006600;color:#fff;" data-tone="medieval" onclick="setTone(this)">⚔️ Medieval</button>
+      <button class="tone-btn" style="background:#880000;color:#fff;" data-tone="telenovela" onclick="setTone(this)">🌹 Telenovela</button>
+    </div>
+
+    <button class="big-btn btn-purple" onclick="makeScript()">✍️ WRITE MY BREAKUP SCRIPT NOW</button>
+    <div class="script-output" id="scriptOutput"></div>
+  </div>
+
+</div>
+
+<!-- BOTTOM MARQUEE -->
+<div class="bottom-mq"><marquee scrollamount="6">💔 REMEMBER: IT IS NOT YOUR FAULT. IT IS 100% THEIRS. OUR AI CONFIRMED THIS AT 3AM WHEN IT COULDN'T SLEEP EITHER 💔 YOU DESERVE BETTER 💔 THEY WERE ANNOYING ANYWAY 💔 GO DRINK SOME WATER 💔</marquee></div>
+
+<footer>
+  <div style="font-size:22px;font-weight:bold;color:#ff69b4;font-family:'Comic Sans MS',cursive;">IT'S NOT ME IT'S YOU™</div>
+  <p style="margin:6px 0;">© 2026 IT'S NOT ME IT'S YOU™ LLC INC CORP. All hearts broken. None repaired.</p>
+  <p>Built with 💔 HTML | Powered by Pettiness.js | Not responsible for drama, thrown items, or passive-aggressive Instagram posts</p>
+  <p style="margin-top:6px;color:#ff6600;font-size:11px;">Intentionally built BAD. OTU CS Club Build It Bad Contest 🏆 | <span class="blink">★ WINNER (probably) ★</span></p>
+</footer>
+
+<script>
+// ===== CURSOR TRAIL =====
+const trailEmojis = ['💔','😤','🚩','💅','🙄','👋','🎂','📱','👻','😭'];
+document.addEventListener('mousemove', e => {
+  if(Math.random() > 0.55) return;
+  const el = document.createElement('div');
+  el.className = 'trail';
+  el.textContent = trailEmojis[Math.floor(Math.random() * trailEmojis.length)];
+  el.style.cssText = `left:${e.clientX - 11}px; top:${e.clientY - 11}px;`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 800);
+});
+
+// ===== FLOATING ELEMENTS =====
+const floatEmojis = ['💔','😤','🚩','👻','📱','🎂','💅','🙄','💀','🫠'];
+setInterval(() => {
+  const el = document.createElement('div');
+  el.className = 'floater';
+  el.textContent = floatEmojis[Math.floor(Math.random() * floatEmojis.length)];
+  el.style.cssText = `left:${Math.random()*100}vw; bottom:-50px; font-size:${20+Math.random()*18}px; animation-duration:${3+Math.random()*4}s;`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 7000);
+}, 700);
+
+// ===== BACKGROUND STARS =====
+const starsBg = document.getElementById('starsBg');
+for(let i=0;i<30;i++){
+  const s = document.createElement('span');
+  s.className = 'star-el';
+  s.textContent = ['💔','✨','🌟','💫','⭐'][Math.floor(Math.random()*5)];
+  s.style.cssText = `left:${Math.random()*100}%; animation-duration:${6+Math.random()*10}s; animation-delay:${Math.random()*8}s;`;
+  starsBg.appendChild(s);
+}
+
+// ===== COUNTERS =====
+let dumps=0, tears=0, flags=847, reads=0;
+let vc = 1;
+setInterval(()=>{
+  if(Math.random()>0.5) dumps++;
+  tears = Math.round((tears + Math.random()*0.4)*10)/10;
+  flags += Math.floor(Math.random()*3);
+  reads += Math.floor(Math.random()*2);
+  vc++;
+  document.getElementById('dumpCount').textContent = dumps;
+  document.getElementById('tearCount').textContent = tears.toFixed(1);
+  document.getElementById('flagCount').textContent = flags;
+  document.getElementById('readCount').textContent = reads;
+  document.getElementById('visitorCount').textContent = String(vc).replace(/(\d)(?=(\d{3})+$)/g,'$1,');
+}, 1800);
+
+// ===== REASON DATA =====
+const reasonData = {
+  looks: [
+    "Their eyebrows are UNEVEN. Not slightly. NOTICEABLY. I counted the hairs. There are 14 more on the left one. I cannot.",
+    "They blink 22 times per minute. The human average is 15-20. I counted during dinner. I always count. I can't stop.",
+    "Their laugh sounds like a printer that's low on ink. I flinch every time. My doctor says it's a reflex now.",
+    "They have a resting face that looks like they're doing long division. At the movies. During Toy Story 3.",
+    "Their nostrils flare when they eat. 34 times per meal on average. I have a spreadsheet.",
+    "They walk with their arms perfectly straight, like a very confident penguin. I thought it was cute. It's been 11 months. It's not cute.",
+  ],
+  habits: [
+    "They breathe LOUDLY. I should not be able to hear them breathe from across the room. And yet. Every single time.",
+    "They reply to my texts with 'k'. Not 'ok'. Not 'okay'. Just the letter k. I deserve at minimum two letters.",
+    "They say 'I could care less' instead of 'I couldn't care less'. If you COULD care less, you DO care. This is logic.",
+    "They put the toilet paper roll on UNDER. We've discussed this. They nodded. They understood. They did it again the next morning.",
+    "They say 'supposably' instead of 'supposedly'. I have gently corrected this 19 times. I keep count in my notes app.",
+    "They leave cabinet doors open. Not one. Not two. Every. Single. Cabinet. The kitchen looks like a scream.",
+    "They end every sentence with 'you know what I mean?' I do not know what they mean. That's why I'm leaving.",
+  ],
+  food: [
+    "They eat pizza crust FIRST. Before the cheese. Before the toppings. They start with the worst part on PURPOSE.",
+    "They put ketchup on scrambled eggs. I saw it on date 3. I stayed 8 more months. That's on me.",
+    "They eat cereal with orange juice. Not milk. ORANGE JUICE. They said 'it's just a different vibe'. It is not a vibe.",
+    "They don't believe in dessert. They said 'I'm not really a dessert person.' That's not a personality. That's a warning.",
+    "They eat sandwiches in a circle. Starting from the outside edge. Going inward. Spirally. Like a villain.",
+    "They call all pasta 'spaghetti'. Penne? Spaghetti. Rigatoni? Spaghetti. Farfalle? Spaghetti. I cannot share a life with this.",
+    "They dip their fries in their milkshake AND they act like that's normal when it is absolutely not normal.",
+  ],
+  random: [
+    "Mercury is in retrograde and they're a Gemini. I'm not elaborating. You either get it or you're also a Gemini.",
+    "They've never seen The Lion King. Not once. In their entire life. They said 'I never got around to it.' It's been 30 years.",
+    "They walk too slow on the sidewalk AND they don't move to the right. This is not just annoying. This is a character flaw.",
+    "They sleep with socks on. In bed. Every night. Like a little goblin who is cold but also wrong.",
+    "They root for a team that has lost 14 games in a row. I cannot absorb this energy into my life any longer.",
+    "They hold their phone with two hands and type with both thumbs simultaneously like they're defusing a bomb. Every time. Every text.",
+    "They put ice in their orange juice. I saw it once. I asked about it. They said 'it keeps it cold'. Orange juice is cold. FROM THE FRIDGE.",
+  ],
+  petty: [
+    "They liked a photo from 2019 on someone else's Instagram at 2:47am on a Tuesday. That is not an accident. That is a choice.",
+    "They gave me a gift with the price tag still on it. AND the receipt in the bag. The receipt. Was. In. The. Bag.",
+    "They said my favourite movie was 'pretty good'. PRETTY GOOD. I've seen it 14 times. It is not 'pretty good'. It is perfect.",
+    "They always say 'we should do this again sometime' instead of actually planning something. I am not a 'sometime'. I am a person.",
+    "They took the last garlic bread without asking. It was our third date. I saw it. I said nothing. I have thought about it every day since.",
+    "They follow 847 accounts but only 212 follow back. The maths are doing something. The maths are saying something. I'm listening.",
+  ],
+  astro: [
+    "They're a Gemini. I said what I said. The AI agrees. My mum agrees. The checkout lady at the grocery store agreed when I explained.",
+    "My tarot card this week was The Tower. That means sudden collapse and chaos. The universe was NOT speaking quietly.",
+    "Our moon signs are completely incompatible. I'm a Scorpio rising. They're a Sagittarius sun. My astrologer (TikTok) confirmed this is bad.",
+    "They don't know their birth time, so I cannot complete their full chart. This level of self-ignorance is a dealbreaker. We need all three.",
+    "Mercury retrograde started the day we met. I have the receipts. Literally: my calendar. It was a Wednesday. Mercury was in chaos.",
+    "Their life path number is 7. Mine is 2. A numerologist with 50k followers said we have 'fundamental energetic friction'. She knows.",
+  ]
+};
+
+const allReasons = Object.values(reasonData).flat();
+
+function getReason(btn, category) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const pool = reasonData[category];
+  const reason = pool[Math.floor(Math.random() * pool.length)];
+  const box = document.getElementById('reasonBox');
+  box.className = 'out-box';
+  box.innerHTML = `<strong style="color:#ff0000;">🚩 OFFICIAL REASON (certified by our AI):</strong><br><br>${reason}<br><br><em style="font-size:11px;color:#666;">Confidence level: 99.9% | Validity: legally binding in our fake court</em>`;
+}
+
+function getRandomReason() {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+  const reason = allReasons[Math.floor(Math.random() * allReasons.length)];
+  const box = document.getElementById('reasonBox');
+  box.className = 'out-box';
+  box.innerHTML = `<strong style="color:#ff0000;">🎲 RANDOM CERTIFIED REASON:</strong><br><br>${reason}<br><br><em style="font-size:11px;color:#666;">Randomly selected from 47 reasons. All are equally valid.</em>`;
+}
+
+// ===== METHOD DATA =====
+const methodData = {
+  text: {
+    icon:'📱', name:'The Text',
+    cowardice:'😬😬😬 out of 😬😬😬😬😬',
+    drama:'📈 VERY HIGH',
+    tips:[
+      'Keep it under 3 sentences. Long texts look like guilt. You have nothing to feel guilty about. (You might have a little.)',
+      'Send it at 11:47pm on a Sunday for MAXIMUM dramatic timing.',
+      'End with "I wish you well" so they genuinely cannot say you were rude. They will try. They cannot.',
+      'Do NOT send a voice memo. Nobody wants to hear your voice right now. Not even you.',
+      'After sending: put your phone face down. Do not look at it for 20 minutes. Set a timer. Respect the timer.',
+    ]
+  },
+  ghost: {
+    icon:'👻', name:'The Ghost',
+    cowardice:'😬😬😬😬😬 out of 😬😬😬😬😬',
+    drama:'📈📈 CATASTROPHIC',
+    tips:[
+      'Leave them on read for 3-5 business days before fully disappearing. Let it steep.',
+      'Do NOT post anything on social media for 2 weeks. Then post ONE good photo. Timing is everything.',
+      'If they call, let it ring exactly 2.5 times (long enough to see), then decline. This is art.',
+      'Change your location sharing status quietly. Do not make a thing of it. It will become a thing.',
+      'Optional: leave one completely unrelated Instagram story within 24 hours. A sunset. A coffee. Nothing. Everything.',
+    ]
+  },
+  letter: {
+    icon:'📮', name:'The Formal Letter',
+    cowardice:'😬😬 out of 😬😬😬😬😬',
+    drama:'📈 MEDIUM (but deeply cursed)',
+    tips:[
+      'Use a fountain pen. This communicates that you planned this. You had TIME to think. You still decided.',
+      'Begin with "To Whom It May Concern". Do not use their name. This is a business decision.',
+      'Sign off with "Regards". Not "Love". Not "Best". REGARDS. Like an invoice.',
+      'Mail it on a Friday afternoon. They will receive it Monday. They will spend the weekend not knowing.',
+      'Do not include a return address. This is a one-way correspondence. Like your feelings.',
+    ]
+  },
+  pigeon: {
+    icon:'🐦', name:'Carrier Pigeon',
+    cowardice:'😬😬😬😬 out of 😬😬😬😬😬',
+    drama:'📈📈 LEGENDARY',
+    tips:[
+      'Attach the note with a red ribbon. Symbolism matters. You are a person with layers.',
+      'The pigeon should ideally arrive during a meal. Meals are memorable. This will be remembered.',
+      'Do not include your address. The pigeon knows the way home. You do not want them to follow.',
+      'If they reply by pigeon, you are legally (in pigeon law) required to respond once. Then you are free.',
+      'Name the pigeon something neutral. Not "goodbye". Not "final". Something like "Gerald". Let Gerald do the work.',
+    ]
+  },
+  cake: {
+    icon:'🎂', name:'The Breakup Cake',
+    cowardice:'😬😬😬 out of 😬😬😬😬😬',
+    drama:'📈📈 ICONIC',
+    tips:[
+      'Order a 2-tier dark chocolate mirror glaze with raspberry coulis. Make it beautiful. This is your final gesture.',
+      'The icing should say "WE\'RE DONE" in a clean sans-serif. Not a fun font. Clean. Professional. Final.',
+      'Leave it on their doorstep, ring the bell once, and walk — do NOT run — to your car.',
+      'Do not watch them open the door. You are not a villain. You are an artist. Artists do not linger.',
+      'If they eat the cake anyway: that is their right. That is also incredible. Respect it.',
+    ]
+  },
+  sticky: {
+    icon:'🗒️', name:'The Sticky Note',
+    cowardice:'😬😬😬😬😬 out of 😬😬😬😬😬',
+    drama:'📈 MEDIUM-HIGH',
+    tips:[
+      'Use neon yellow. Not pink — pink implies warmth. Not blue — blue implies sadness. YELLOW. Neutral. Alert.',
+      'Write in ALL CAPS BLOCK LETTERS. Lowercase implies uncertainty. You are not uncertain.',
+      'Use 12 words or fewer. Every extra word is a liability. "We\'re done. I took the cat. Be well. — [Name]"',
+      'Stick it on the fridge, not the door. The door they might miss. The fridge? Nobody misses the fridge.',
+      'Leave no other note, item, or sign of your presence. You were here. Now you are not. The sticky note explains everything.',
+    ]
+  }
+};
+
+function pickMethod(el, method) {
+  document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const m = methodData[method];
+  const box = document.getElementById('methodBox');
+  box.className = 'out-box';
+  let tipsHtml = m.tips.map(t => `✅ ${t}`).join('<br><br>');
+  box.innerHTML = `<strong style="font-size:15px;">${m.icon} ${m.name}</strong><br>
+  <em style="font-size:11px;">Cowardice Rating: ${m.cowardice} | Drama Potential: ${m.drama}</em>
+  <hr style="border:2px solid #000;margin:8px 0;">
+  ${tipsHtml}`;
+}
+
+// ===== PLAN DATA =====
+const planSteps = [
+  { icon:'🧠', title:'STEP 1: Mental Preparation (15 mins)',
+    desc:(n,r) => `Spend 10-15 minutes in front of a mirror rehearsing your face. You want "I've thought about this for a long time" — not "I'm sorry" and not "I'm excited". Certain. Calm. Decided. Practice saying "${n}, I need to talk to you" without your voice going up at the end like a question. It is not a question.` },
+  { icon:'📵', title:'STEP 2: Pre-Dump Logistics',
+    desc:(n,r) => `Quietly mute (NOT unfollow) ${n}'s social media. Locate all items you want back: hoodies, chargers, that book you said they could borrow and they haven't mentioned since. Put your own items in a bag by the door. You are not doing this in two trips.` },
+  { icon:'📍', title:'STEP 3: Choose Your Location',
+    desc:(n,r) => `Public enough that ${n} cannot fully fall apart. Private enough that you are not filmed. A park bench is ideal. A coffee shop is fine. A restaurant is DANGEROUS — they might throw the bread basket and honestly? You'd deserve it. Do NOT do this at their home. You need a clean exit route.` },
+  { icon:'💬', title:'STEP 4: The Opening Line',
+    desc:(n,r) => `DO NOT say "we need to talk." They'll spend 2 hours catastrophising in their own head before you even get there. Just show up and say: "${n}, I have something important to tell you." Pause for 3 seconds. Let the weight land. Then begin.` },
+  { icon:'💣', title:'STEP 5: The Reason',
+    desc:(n,r) => `State it clearly and do not apologise for having it. Say: "I've been thinking a lot, and honestly, ${r}. And I've realised I can't keep ignoring how I feel about it." Do NOT over-explain. Do NOT list other reasons you've been saving up. This one is enough. You're allowed to leave because of ${r}. That's real.` },
+  { icon:'🤐', title:'STEP 6: The Hard Part (Do Not Cave)',
+    desc:(n,r) => `${n} will say things. They might cry. They might say "but we can fix this." You will feel the urge to say "maybe we can try." DO NOT SAY THAT. You came here for a reason. The reason is ${r}. Stay with the reason.` },
+  { icon:'🚪', title:'STEP 7: The Exit',
+    desc:(n,r) => `Say exactly this: "I hope you understand. I genuinely wish you well." Then stand up. Do not hug unless they initiate and it feels right. Do not say "we can still be friends" unless you mean it — and you probably don't mean it right now. Leave. Walk at a normal pace. You did the hard thing.` },
+  { icon:'🛋️', title:'STEP 8: Post-Breakup Protocol',
+    desc:(n,r) => `Go home. Eat something real. Put on a comfort show (may we suggest something with zero romance). Do NOT check ${n}'s socials for 48 hours minimum. You are allowed to feel every feeling tonight. Tomorrow, drink water. You did something brave. It was the right call.` },
+];
+
+function makePlan() {
+  const name = document.getElementById('planName').value.trim() || 'Them';
+  const reason = document.getElementById('planReason').value.trim() || 'they were honestly just a lot';
+  const out = document.getElementById('planOutput');
+  out.style.display = 'block';
+
+  let html = `<div style="text-align:center;font-size:14px;font-weight:bold;color:#ff0000;margin-bottom:14px;background:#fff;border:4px solid #000;padding:10px;box-shadow:4px 4px 0 #000;">
+    📋 CERTIFIED BREAKUP PLAN FOR: <span style="text-decoration:underline;">${name.toUpperCase()}</span><br>
+    <span style="font-size:12px;color:#000;">REASON ON FILE: "${reason}"</span><br>
+    <span style="font-size:10px;color:#888;font-weight:normal;">Generated by IT'S NOT ME IT'S YOU™ AI | Certified at ${new Date().toLocaleTimeString()}</span>
+  </div>`;
+
+  planSteps.forEach(step => {
+    html += `<div class="step">
+      <div class="step-icon">${step.icon}</div>
+      <div class="step-body">
+        <div class="step-title">${step.title}</div>
+        <div class="step-desc">${step.desc(name, reason)}</div>
+      </div>
+    </div>`;
+  });
+
+  html += `<div style="text-align:center;font-size:13px;font-weight:bold;background:#ff0000;color:#fff;padding:10px;border:4px solid #000;box-shadow:4px 4px 0 #000;margin-top:6px;">
+    ✅ PLAN COMPLETE. YOU'VE GOT THIS. IT IS 100% THEIR FAULT. (PROBABLY.)
+  </div>`;
+
+  out.innerHTML = html;
+  dumps++;
+  document.getElementById('dumpCount').textContent = dumps;
+}
+
+// ===== SCRIPT DATA =====
+let currentTone = 'dramatic';
+function setTone(btn) {
+  document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentTone = btn.dataset.tone;
+}
+
+const scriptTemplates = {
+  dramatic: (n, r) =>
+`${n}. Sit down.
+
+...Actually, stand. This won't take long, but it deserves eye contact.
+
+I have spent a lot of time — more time than I'm going to admit out loud — asking myself one question: is this working?
+
+And the answer, ${n}... is no.
+
+The truth is, ${r}. And I have tried — I have genuinely tried — to look past it. I've made peace with a lot of things. I cannot make peace with this.
+
+This isn't about you as a person.
+
+...Actually it is a little bit about you as a person. But I say that with kindness.
+
+I'm walking away from this, ${n}. And I'm not looking back. (I've already called a cab. It's outside. I timed this.)
+
+Goodbye.
+
+— [delivered with sustained eye contact and a single nod]`,
+
+  petty: (n, r) =>
+`Hey. So. I've been thinking.
+
+You know what, I'll just say it: ${r}. That's it. That's the whole thing. I know how it sounds. I don't care how it sounds.
+
+Don't make this dramatic. I'm not upset. I'm just... done. You know? Like when you finish a Netflix show and you don't immediately look for the next one. You just close the laptop and go to bed.
+
+That's where I am, ${n}. Laptop closed.
+
+I already soft-muted you on Instagram so you won't notice right away, but I want you to know I'll be fully unfollowing by Thursday. After the weekend. Out of respect.
+
+I'm keeping the hoodie.
+
+I genuinely wish you well and I hope you figure out the ${r} thing because someone else is going to have a problem with it too.
+
+Okay. Bye.`,
+
+  corporate: (n, r) =>
+`Dear ${n},
+
+I am reaching out to inform you that, following an extensive internal review of our relationship performance metrics, I have made the decision to discontinue our partnership effective immediately.
+
+After careful analysis, it has become clear that ${r} represents a fundamental misalignment with my personal KPIs, core values, and long-term strategic roadmap.
+
+Please note the following action items:
+  • All shared assets will be redistributed within 5-7 business days
+  • Mutual connections have been notified on a need-to-know basis
+  • Your access to my emotional bandwidth has been revoked
+  • A full offboarding checklist is available upon request (it includes the hoodie)
+
+I appreciate your contributions during this engagement period and wish you every success in your future endeavours.
+
+This communication is final and does not require a response. If you do respond, please keep it brief and professionally worded.
+
+Regards,
+[Your Full Name]
+Chief Executive Officer of My Own Life™`,
+
+  medieval: (n, r) =>
+`Hark, ${n}! I prithee lend me thine ear, for I bear tidings most grave.
+
+It is with a heavy heart — and yet a soul most resolute — that I hereby announce the dissolution of our courtship, forthwith, and in perpetuity henceforth.
+
+For lo, ${r}, and such transgressions cannot go unaddressed in any court of true and honourable love.
+
+I have consulted mine own counsel. I have walked the long road of contemplation. I have gazed upon the stars and sought their wisdom, and the stars, ${n}, said unto me: "go."
+
+I hereby return to thee thy freedom in full. Thou art no longer bound to mine presence, and I to thine. Seek companionship elsewhere in this vast and troubled kingdom.
+
+May thy future be prosperous.
+May thy bread be warm.
+May thou one day reckon with the matter of ${r}, for I shall not be there to suffer it further.
+
+Farewell, brave ${n}.
+
+— [Signed with a wax seal depicting a broken heart and a small pigeon]`,
+
+  telenovela: (n, r) =>
+`[dramatic pause — hold for 4 seconds — make strong eye contact]
+
+${n}...
+
+[voice cracking slightly]
+
+I have been lying to myself. For months. Maybe years. I told myself it didn't matter. I told myself love was enough.
+
+But ${r}, ${n}. 
+
+[single tear, left eye only]
+
+Do you know what it is like to smile through the pain of ${r}?! Every day?! EVERY SINGLE DAY?!
+
+[places hand on chest]
+
+My heart... my heart cannot carry this anymore. It is too full. Too full of feelings... and also of the knowledge of ${r}.
+
+[dramatic turn toward window, if possible]
+
+You are a good person, ${n}. In many ways, a WONDERFUL person. But we were never meant to be. The universe knew. I refused to listen. I am listening now.
+
+[turns back, eyes glistening]
+
+Goodbye, ${n}. 
+
+[long pause]
+
+Goodbye.
+
+[leaves without looking back — do NOT look back — it ruins everything]`
+};
+
+function makeScript() {
+  const name = document.getElementById('scriptName').value.trim() || 'Kevin';
+  const reason = document.getElementById('scriptReason').value.trim() || 'you were honestly just a lot';
+  const out = document.getElementById('scriptOutput');
+  out.style.display = 'block';
+
+  const toneLabels = {
+    dramatic:'🎭 DRAMATIC',
+    petty:'💅 PETTY',
+    corporate:'📊 CORPORATE',
+    medieval:'⚔️ MEDIEVAL',
+    telenovela:'🌹 TELENOVELA'
+  };
+
+  out.innerHTML = `<span class="script-header">📜 YOUR OFFICIAL BREAKUP SCRIPT | Tone: ${toneLabels[currentTone]} | For: ${name.toUpperCase()}</span>` +
+    scriptTemplates[currentTone](name, reason);
+}
+</script>
+</body>
+</html>
