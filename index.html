@@ -235,6 +235,130 @@ footer { background:#000; color:#ff69b4; text-align:center; padding:14px; font-s
 .stars { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
 .star-el { position:absolute; font-size:18px; animation:starFloat linear infinite; opacity:0.15; }
 @keyframes starFloat { from{transform:translateY(100vh);} to{transform:translateY(-20px);} }
+
+/* ---- METHOD ANIMATIONS ---- */
+/* PIGEON */
+.pigeon-fly {
+  position:fixed; pointer-events:none; z-index:10000;
+  font-size:60px; top:40%;
+  animation: pigeonFly 3s linear forwards;
+}
+@keyframes pigeonFly {
+  0%   { left:-100px; transform:scaleX(1) translateY(0px) rotate(-5deg); }
+  20%  { transform:scaleX(1) translateY(-30px) rotate(5deg); }
+  40%  { transform:scaleX(1) translateY(10px) rotate(-8deg); }
+  60%  { transform:scaleX(1) translateY(-20px) rotate(4deg); }
+  80%  { transform:scaleX(1) translateY(5px) rotate(-3deg); }
+  100% { left:110vw; transform:scaleX(1) translateY(-10px) rotate(0deg); }
+}
+.pigeon-note {
+  position:fixed; z-index:9999; pointer-events:none;
+  font-family:'Comic Sans MS',cursive; font-size:12px; font-weight:bold;
+  background:#fff; border:3px solid #000; padding:6px 10px;
+  box-shadow:3px 3px 0 #000; top:calc(40% + 55px);
+  animation: pigeonFly 3s linear forwards;
+  white-space:nowrap;
+}
+
+/* GHOST */
+.ghost-fly {
+  position:fixed; pointer-events:none; z-index:10000;
+  font-size:70px; left:50%;
+  animation: ghostFloat 2.5s ease-in-out forwards;
+}
+@keyframes ghostFloat {
+  0%   { top:100vh; opacity:0; transform:translateX(-50%) scale(0.5); }
+  20%  { opacity:1; transform:translateX(-60%) scale(1.1); }
+  50%  { transform:translateX(-40%) scale(1); }
+  80%  { transform:translateX(-55%) scale(1.05); opacity:1; }
+  100% { top:-200px; opacity:0; transform:translateX(-50%) scale(0.3); }
+}
+
+/* TEXT MESSAGE */
+.text-popup {
+  position:fixed; pointer-events:none; z-index:10000;
+  bottom:80px; right:-400px;
+  animation: textSlide 4s ease forwards;
+}
+@keyframes textSlide {
+  0%  { right:-400px; }
+  15% { right:20px; }
+  75% { right:20px; }
+  100%{ right:-400px; }
+}
+.text-bubble {
+  background:#fff; border:5px solid #000; border-radius:18px 18px 4px 18px;
+  padding:12px 16px; box-shadow:6px 6px 0 #000; max-width:280px;
+  font-family:'Comic Sans MS',cursive; font-size:13px; font-weight:bold;
+}
+.text-bubble .sender { font-size:11px; color:#888; margin-bottom:4px; }
+.text-bubble .msg { color:#000; line-height:1.5; }
+.text-bubble .timestamp { font-size:10px; color:#aaa; margin-top:4px; text-align:right; }
+
+/* FORMAL LETTER */
+.letter-fly {
+  position:fixed; pointer-events:none; z-index:10000;
+  font-size:64px; top:45%;
+  animation: letterFly 3.2s linear forwards;
+}
+@keyframes letterFly {
+  0%   { right:-120px; transform:rotate(0deg); }
+  25%  { transform:rotate(-15deg) translateY(-20px); }
+  50%  { transform:rotate(10deg) translateY(10px); }
+  75%  { transform:rotate(-8deg) translateY(-15px); }
+  100% { right:110vw; transform:rotate(5deg); }
+}
+
+/* CAKE */
+.cake-drop {
+  position:fixed; pointer-events:none; z-index:10000;
+  font-size:80px; left:50%; transform:translateX(-50%);
+  animation: cakeDrop 3s ease forwards;
+}
+@keyframes cakeDrop {
+  0%   { top:-150px; }
+  40%  { top:35%; transform:translateX(-50%) scale(1.3); }
+  55%  { top:35%; transform:translateX(-50%) scale(0.9); }
+  65%  { top:35%; transform:translateX(-50%) scale(1.1); }
+  75%  { top:35%; transform:translateX(-50%) scale(1); }
+  85%  { top:35%; opacity:1; }
+  100% { top:35%; opacity:0; transform:translateX(-50%) scale(2); }
+}
+.cake-label {
+  position:fixed; pointer-events:none; z-index:10001;
+  left:50%; transform:translateX(-50%); top:calc(35% + 90px);
+  background:#ff0000; color:#fff; font-family:'Comic Sans MS',cursive;
+  font-size:16px; font-weight:bold; padding:6px 14px; border:4px solid #000;
+  box-shadow:4px 4px 0 #000; white-space:nowrap;
+  animation: cakeLabelAnim 3s ease forwards;
+}
+@keyframes cakeLabelAnim {
+  0%,35%  { opacity:0; }
+  45%     { opacity:1; }
+  80%     { opacity:1; }
+  100%    { opacity:0; }
+}
+
+/* STICKY NOTE */
+.sticky-slap {
+  position:fixed; pointer-events:none; z-index:10000;
+  top:30%; left:50%; transform:translate(-50%,-50%) rotate(-8deg) scale(0);
+  animation: stickySlap 3.5s ease forwards;
+}
+@keyframes stickySlap {
+  0%  { transform:translate(-50%,-50%) rotate(-8deg) scale(0); }
+  20% { transform:translate(-50%,-50%) rotate(-8deg) scale(1.3); }
+  30% { transform:translate(-50%,-50%) rotate(-8deg) scale(0.95); }
+  40% { transform:translate(-50%,-50%) rotate(-8deg) scale(1); }
+  75% { transform:translate(-50%,-50%) rotate(-8deg) scale(1); opacity:1; }
+  100%{ transform:translate(-50%,-50%) rotate(-8deg) scale(0.1); opacity:0; }
+}
+.sticky-inner {
+  background:#ffff44; border:4px solid #000; padding:16px 20px;
+  box-shadow:6px 6px 0 #000; font-family:'Comic Sans MS',cursive;
+  font-size:15px; font-weight:bold; color:#000; min-width:200px; text-align:center;
+  line-height:1.6;
+}
 </style>
 </head>
 <body>
@@ -596,6 +720,142 @@ function pickMethod(el, method) {
   <em style="font-size:11px;">Cowardice Rating: ${m.cowardice} | Drama Potential: ${m.drama}</em>
   <hr style="border:2px solid #000;margin:8px 0;">
   ${tipsHtml}`;
+  triggerMethodAnimation(method);
+}
+
+function triggerMethodAnimation(method) {
+  // Remove any existing animations
+  document.querySelectorAll('.anim-overlay').forEach(e => e.remove());
+
+  if (method === 'pigeon') {
+    const pigeon = document.createElement('div');
+    pigeon.className = 'pigeon-fly anim-overlay';
+    pigeon.textContent = '🐦';
+    document.body.appendChild(pigeon);
+
+    const note = document.createElement('div');
+    note.className = 'pigeon-note anim-overlay';
+    note.textContent = '📜 "we r done. — gerald the pigeon"';
+    document.body.appendChild(note);
+
+    setTimeout(() => { pigeon.remove(); note.remove(); }, 3200);
+  }
+
+  else if (method === 'ghost') {
+    const ghost = document.createElement('div');
+    ghost.className = 'ghost-fly anim-overlay';
+    ghost.innerHTML = '👻';
+    document.body.appendChild(ghost);
+
+    // ghost leaves a message fading on screen
+    const msg = document.createElement('div');
+    msg.className = 'anim-overlay';
+    msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:bold;font-family:Comic Sans MS,cursive;color:#fff;text-shadow:3px 3px 0 #000;pointer-events:none;z-index:10000;text-align:center;animation:ghostMsg 2.5s ease forwards;';
+    msg.innerHTML = '👻 lol ok bye<br><span style="font-size:14px;">[read at 11:47pm]<br>[no response]</span>';
+    const style = document.createElement('style');
+    style.textContent = '@keyframes ghostMsg{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}';
+    document.head.appendChild(style);
+    document.body.appendChild(msg);
+
+    setTimeout(() => { ghost.remove(); msg.remove(); }, 2800);
+  }
+
+  else if (method === 'text') {
+    const popup = document.createElement('div');
+    popup.className = 'text-popup anim-overlay';
+    const now = new Date();
+    const time = now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0') + ' PM';
+    popup.innerHTML = `<div class="text-bubble">
+      <div class="sender">📱 You → Them</div>
+      <div class="msg">hey so um. this isn't working out. it's not me it's you. i wish you well 🙂 also i'm keeping the hoodie</div>
+      <div class="timestamp">${time} ✓✓ (read)</div>
+    </div>
+    <div style="margin-top:6px;background:#ff0000;color:#fff;font-family:Comic Sans MS,cursive;font-size:11px;font-weight:bold;padding:4px 8px;border:2px solid #000;text-align:center;">them: "k"</div>`;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 4200);
+  }
+
+  else if (method === 'letter') {
+    const letter = document.createElement('div');
+    letter.className = 'letter-fly anim-overlay';
+    letter.style.right = '-120px';
+    letter.textContent = '📮';
+    document.body.appendChild(letter);
+
+    // make it fly right to left
+    letter.style.animation = 'none';
+    letter.style.cssText += ';position:fixed;top:45%;right:-120px;pointer-events:none;z-index:10000;font-size:64px;';
+    let pos = -120;
+    const interval = setInterval(() => {
+      pos += 8;
+      letter.style.right = 'unset';
+      letter.style.left = pos + 'px';
+      const wobble = Math.sin(pos * 0.05) * 15;
+      letter.style.transform = `rotate(${wobble}deg) translateY(${Math.sin(pos*0.03)*20}px)`;
+      if (pos > window.innerWidth + 100) { clearInterval(interval); letter.remove(); }
+    }, 16);
+
+    const tag = document.createElement('div');
+    tag.className = 'anim-overlay';
+    tag.style.cssText = 'position:fixed;top:42%;left:50%;transform:translate(-50%,-50%);font-family:Comic Sans MS,cursive;font-size:14px;font-weight:bold;background:#fff;border:4px solid #000;padding:8px 14px;box-shadow:4px 4px 0 #000;pointer-events:none;z-index:10001;text-align:center;animation:fadeInOut 3s ease forwards;';
+    tag.innerHTML = '📮 "To Whom It May Concern,<br>Regards."';
+    const s2 = document.createElement('style');
+    s2.textContent = '@keyframes fadeInOut{0%{opacity:0}15%{opacity:1}75%{opacity:1}100%{opacity:0}}';
+    document.head.appendChild(s2);
+    document.body.appendChild(tag);
+    setTimeout(() => tag.remove(), 3200);
+  }
+
+  else if (method === 'cake') {
+    const cake = document.createElement('div');
+    cake.className = 'cake-drop anim-overlay';
+    cake.textContent = '🎂';
+    document.body.appendChild(cake);
+
+    const label = document.createElement('div');
+    label.className = 'cake-label anim-overlay';
+    label.textContent = '🎂 "WE\'RE DONE" (chocolate mirror glaze)';
+    document.body.appendChild(label);
+
+    // confetti burst
+    for(let i=0;i<20;i++){
+      setTimeout(()=>{
+        const c = document.createElement('div');
+        c.className = 'floater anim-overlay';
+        c.textContent = ['💔','✨','🎉','💅','😭'][Math.floor(Math.random()*5)];
+        c.style.cssText = `left:${30+Math.random()*40}vw;bottom:30%;font-size:${18+Math.random()*16}px;animation-duration:${1.5+Math.random()*2}s;`;
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(), 3000);
+      }, i*80);
+    }
+
+    setTimeout(() => { cake.remove(); label.remove(); }, 3200);
+  }
+
+  else if (method === 'sticky') {
+    const sticky = document.createElement('div');
+    sticky.className = 'sticky-slap anim-overlay';
+    sticky.innerHTML = `<div class="sticky-inner">
+      WE'RE DONE.<br>
+      I TOOK THE CAT.<br>
+      BE WELL.<br>
+      — [Name]
+    </div>`;
+
+    // slap sound effect text
+    const slap = document.createElement('div');
+    slap.className = 'anim-overlay';
+    slap.style.cssText = 'position:fixed;top:20%;left:50%;transform:translateX(-50%);font-size:48px;font-weight:bold;font-family:Comic Sans MS,cursive;color:#ff0000;text-shadow:4px 4px 0 #000;pointer-events:none;z-index:10002;animation:slapWord 0.8s ease forwards;';
+    slap.textContent = '🗒️ SLAP!';
+    const s3 = document.createElement('style');
+    s3.textContent = '@keyframes slapWord{0%{opacity:0;transform:translateX(-50%) scale(3)}30%{opacity:1;transform:translateX(-50%) scale(0.9)}60%{opacity:1}100%{opacity:0;transform:translateX(-50%) scale(1.2)}}';
+    document.head.appendChild(s3);
+
+    document.body.appendChild(slap);
+    document.body.appendChild(sticky);
+
+    setTimeout(() => { sticky.remove(); slap.remove(); }, 3800);
+  }
 }
 
 // ===== PLAN DATA =====
