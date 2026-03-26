@@ -6,7 +6,7 @@ Built intentionally terrible for OTU CS Club's **Build It Bad Contest**.
 ## How to run it
 1. Download `index.html`
 2. Open it in VSCO Studio
-3. Right click on thr file and click live server option to run it.
+3. Right click on the file and click live server option to run it.
 3. That's it. No installs. No dependencies. Just HTML and pettiness.
 
 ## 💔 Features
